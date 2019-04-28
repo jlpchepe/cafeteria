@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as A from '@material-ui/core/Box';
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -8,9 +9,10 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, Theme } from "@material-ui/core/styles";
+import teal from '@material-ui/core/colors/teal';
 
-const styles = theme => ({
+const styles = (theme: Theme) => ({
     card: {
         display: "flex",
         [theme.breakpoints.up("md")]: {
@@ -30,6 +32,12 @@ const styles = theme => ({
     cardActions: {
         justifyContent: "center",
         paddingBottom: 0
+    },
+    selectedCard: {
+        borderColor: theme.palette.primary.main, 
+        backgroundColor: teal[100],
+        borderBottomWidth:"2px", 
+        borderStyle: "solid"
     }
 }); 
 
@@ -56,6 +64,9 @@ interface ItemCardProps {
  * Representa una tarjeta que muestra la información de un artículo 
  */
 export class ItemCardSimple extends React.Component<ItemCardProps> {
+    /**
+     * Manejador de cuando el usuario da clic en ver detalles del artículo actual
+     */
     handleSeeDetails = () => {
         this.props.onSeeDetails(this.props.item);
     }
@@ -64,24 +75,25 @@ export class ItemCardSimple extends React.Component<ItemCardProps> {
         const classes = this.props["classes"];
 
         return (
-            <Grid item sm={12} md={3} lg={2} style={{width: "100%"}}>
-                <Card className={classes.card} >
+            <Grid item sm={12} md={3} lg={2} style={{flexBasis: "100%"}}>
+                <Card className={classNames(classes.card, this.props.selected ? classes.selectedCard : null)}>
                     <CardMedia
                         className={classes.cardMedia}
                         image={this.props.item.imageSource}
                         title={this.props.item.name}
                     />
                     <CardContent className={classes.cardContent}>
-                            <Typography gutterBottom variant="h6" align="center">
-                                {this.props.item.name}
-                            </Typography>
-                            <Typography align="center">
-                                {`$ ${this.props.item.price}`}
-                            </Typography>
-                            
-                            <CardActions className={classes.cardActions}>
-                                <Button color="primary"  onClick={this.handleSeeDetails}>Details</Button>
-                            </CardActions>
+                        <Typography gutterBottom variant="h6" align="center">
+                            {this.props.item.name}
+                        </Typography>
+                        <Typography align="center">
+                            {`$ ${this.props.item.price}`}
+                        </Typography>
+                        <CardActions className={classes.cardActions}>
+                            <Button color="primary" onClick={this.handleSeeDetails}>
+                                Details
+                            </Button>
+                        </CardActions>
                     </CardContent>
                 </Card>
             </Grid>
