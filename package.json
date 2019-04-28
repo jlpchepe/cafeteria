@@ -1,0 +1,36 @@
+{
+  "name": "cafeteria",
+  "version": "1.0.0",
+  "description": "React Cafeteria and Hamburguers Menu",
+  "scripts": {
+    "start": "npx parcel src/main/index.html",
+    "build": "npx parcel build src/main/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlpchepe/cafeteria.git"
+  },
+  "keywords": [
+    "React",
+    "Redux",
+    "Parcel",
+    "TypeScript"
+  ],
+  "author": "José Luis López Peña",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/history": "^4.6.1",
+    "@types/react": "^16.8.14",
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.4.5"
+  },
+  "bugs": {
+    "url": "https://github.com/jlpchepe/cafeteria/issues"
+  },
+  "homepage": "https://github.com/jlpchepe/cafeteria#readme"
+}
