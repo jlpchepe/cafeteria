@@ -4,40 +4,20 @@ import { ItemCardShowable, ItemCard } from "../item-card/item-card";
 import { ItemModal, ItemModalShowable } from "../item-modal/item-modal";
 import { Grid, withStyles } from "@material-ui/core";
 import classNames from "classnames";
-
-/**
- * Información que debe contener un artículo que se puede listar
- */
-interface ItemListable extends ItemCardShowable {
-    sizeSelected: boolean;
-} 
+import { withItems } from "../../../hoc/with-items";
+import { ItemListable } from "../../../../models/item";
 
 /**
  * Propiedades que requiere la lista de artículos para funcionar
  */
 interface ItemListProps {
-    
+    classes: ItemListStyle;
+    items: ItemListable[];
 }
 
 interface ItemListState {
     itemShownInModal: ItemListable;
 }
-
-const styles = theme => ({
-    cardGrid: {
-        padding: `${theme.spacing.unit * 8}px 0`,
-    },
-    layout: {
-        width: "auto",
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
-          width: 1100,
-          marginLeft: "auto",
-          marginRight: "auto",
-        },
-    },
-});
 
 /**
  * Representa un listado de artículos con su correspondiente funcionalidad de interacción con el usuario
@@ -73,40 +53,9 @@ class ItemListPure extends React.Component<ItemListProps, ItemListState> {
         this.state.itemShownInModal.sizeSelected = size;
     }
 
-    items: ItemListable[] = [
-        {
-            name: "Hamburguer",
-            description: "Tasty hamburguer with onion",
-            price: 50,
-            imageSource: "https://images.unsplash.com/photo-1551615593-ef5fe247e8f7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1380&q=80",
-            sizeSelected: null
-        },
-        {
-            name: "Pizza",
-            description: "Delicious italian cheese pizza",
-            price: 40,
-            imageSource: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80",
-            sizeSelected: null
-        },
-        {
-            name: "Sandwich",
-            description: "Delicious italian cheese hamburguer",
-            price: 35,
-            imageSource: "https://images.unsplash.com/photo-1521390188846-e2a3a97453a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-            sizeSelected: null
-        },
-        {
-            name: "Salad",
-            description: "Delicious salad",
-            price: 60,
-            imageSource: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
-            sizeSelected: null
-        }
-    ];
-
     render() {
-        const classes = this.props["classes"];
-        const items = this.items.concat(this.items).concat(this.items);
+        const classes = this.props.classes;
+        const items = this.props.items;
 
         return (
             <React.Fragment>
@@ -140,4 +89,22 @@ class ItemListPure extends React.Component<ItemListProps, ItemListState> {
     }
 }
 
-export const ItemList = withStyles(styles)(ItemListPure);
+const styles = theme => ({
+    cardGrid: {
+        padding: `${theme.spacing.unit * 8}px 0`,
+    },
+    layout: {
+        width: "auto",
+        marginLeft: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
+        [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
+            width: 1100,
+            marginLeft: "auto",
+            marginRight: "auto",
+        },
+    },
+});
+
+type ItemListStyle = ReturnType<typeof styles>;
+
+export const ItemList =  withStyles(styles)(withItems(ItemListPure) as any);

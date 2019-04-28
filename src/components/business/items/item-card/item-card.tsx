@@ -12,35 +12,6 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import teal from '@material-ui/core/colors/teal';
 
-const styles = (theme: Theme) => ({
-    card: {
-        display: "flex",
-        [theme.breakpoints.up("md")]: {
-            flexDirection: "column"
-        }
-    },
-    cardContent: {
-        flexGrow: 1,
-        alignItems: "center"
-    },
-    cardMedia: {
-        minWidth: "50%",
-        [theme.breakpoints.up("md")]: {
-            paddingTop: "56.25%" // 16:9
-        }
-    },
-    cardActions: {
-        justifyContent: "center",
-        paddingBottom: 0
-    },
-    selectedCard: {
-        borderColor: theme.palette.primary.main, 
-        backgroundColor: teal[100],
-        borderBottomWidth:"2px", 
-        borderStyle: "solid"
-    }
-}); 
-
 /**
  * Información que se necesita para mostar un artículo en una tarjeta
  */
@@ -63,7 +34,7 @@ interface ItemCardProps {
 /**
  * Representa una tarjeta que muestra la información de un artículo 
  */
-export class ItemCardSimple extends React.Component<ItemCardProps> {
+class ItemCardSimple extends React.Component<ItemCardProps> {
     /**
      * Manejador de cuando el usuario da clic en ver detalles del artículo actual
      */
@@ -100,5 +71,37 @@ export class ItemCardSimple extends React.Component<ItemCardProps> {
         );
     }
 }
+
+/**
+ * Estilos utilizados por la tarjeta
+ */
+const styles = (theme: Theme) => ({
+    card: {
+        display: "flex",
+        [theme.breakpoints.up("md")]: {
+            flexDirection: "column"
+        }
+    },
+    cardContent: {
+        flexGrow: 1,
+        alignItems: "center"
+    },
+    cardMedia: {
+        minWidth: "50%",
+        [theme.breakpoints.up("md")]: {
+            paddingTop: "56.25%" // 16:9
+        }
+    },
+    cardActions: {
+        justifyContent: "center",
+        paddingBottom: 0
+    },
+    selectedCard: {
+        borderColor: theme.palette.primary.main, 
+        backgroundColor: teal[100],
+        borderBottomWidth:"2px", 
+        borderStyle: "solid"
+    }
+}); 
 
 export const ItemCard =  withStyles(styles as any)(ItemCardSimple);
