@@ -2,7 +2,7 @@
 The technology set used to create this project is composed primarily by:
 - TypeScript
 - React
-- Parcel (empaquetador)
+- Parcel
 - Material UI
 
 ## Clone the repository
