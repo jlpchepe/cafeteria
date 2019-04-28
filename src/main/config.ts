@@ -14,7 +14,12 @@ export enum ApiMode {
  * En base a este parámetro la aplicación decidirá si inyectar servicio en memoria o remoto para los componentes
  */
 export const getPreferredApiMode = () => ApiMode.Remote;
+
+const baseApiEndpoint = 
+    // "http://localhost:8080"
+    "https://cafeteria-backend.herokuapp.com";
+
 /**
  * En base a este parámetros, la aplicación determinará a donde mandar la petición para obtener los artículos
  */
-export const getItemsApiEndpoint = () => "http://localhost:54556/api/item";
+export const getItemsApiEndpoint = () => baseApiEndpoint + "/api/item";
