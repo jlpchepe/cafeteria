@@ -2,7 +2,10 @@ import * as React from "react";
 import ButtonMaterial from '@material-ui/core/Button';
 
 interface ButtonProps { 
-    onClick: () => void;
+    /**
+     * Acción a ejecutar cuando el usuario dé clic en el artículo
+     */
+    onClick?: () => void;
 }
 
 /**
@@ -12,7 +15,11 @@ interface ButtonProps {
 export class Button extends React.Component<ButtonProps> {
     render(){
         return (
-            <ButtonMaterial onClick={this.props.onClick}>{this.props.children}</ButtonMaterial>
+            <ButtonMaterial 
+                onClick={this.props.onClick} 
+                variant="contained"
+                color="primary"
+            >{this.props.children}</ButtonMaterial>
         );
     }
 }
