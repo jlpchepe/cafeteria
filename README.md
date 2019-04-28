@@ -1,5 +1,5 @@
 # React Cafeteria and Hamburgers Menu
-El conjunto de tecnologías utilizadas para hacer posible este proyecto se compone principalmente por:
+The technology set used to create this project is composed primarily by:
 - TypeScript
 - React
 - Parcel (empaquetador)
@@ -8,11 +8,11 @@ El conjunto de tecnologías utilizadas para hacer posible este proyecto se compo
 ## Clone the repository
 git clone https://github.com/jlpchepe/cafeteria
 
-## Instalar dependencias
+## Install dependencies
 npm install
 
-## Iniciar aplicación
+## Start application
 npm run start
 
-## Solo generar distribuible
+## Only generate distributable
 npm run build
