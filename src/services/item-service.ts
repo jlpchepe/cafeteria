@@ -1,10 +1,16 @@
 import { ItemListable } from "../models/item";
 import { getPreferredApiMode, getItemsApiEndpoint, ApiMode } from "../main/config";
 
+/**
+ * Servicio encargado de suministrar artículos
+ */
 interface ItemService {
     getItems: () => Promise<ItemListable[]>
 }
 
+/**
+ * Servicio encargado de obtener los artículos consumiendo una API remota
+ */
 class RemoteItemService {
     async getItems(): Promise<ItemListable[]> {
         const response = await fetch(getItemsApiEndpoint());
@@ -14,15 +20,18 @@ class RemoteItemService {
     }
 }
 
+/**
+ * Servicio encargado de obtener los artículos en memoria
+ */
 class InMemoryItemService {
     async getItems(): Promise<ItemListable[]> {
          //GENERAMOS 100 ARTÍCULOS
-         const items100 = Array.apply(null, {length: 20})
-         .map(() => generateItems())
-         .reduce((concatanatedItems, nextItems) => concatanatedItems.concat(nextItems), [])
-         ;
+         const items = Array.apply(null, {length: 20})
+            .map(() => generateItems())
+            .reduce((concatanatedItems, nextItems) => concatanatedItems.concat(nextItems), [])
+            ;
 
-        return items100;
+        return items;
     }
 }
 
