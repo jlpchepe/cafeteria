@@ -6,24 +6,17 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { RadioSelect } from "../../../generic/radio-select/radio-select";
-import { CardMedia } from "@material-ui/core";
-
-/**
- * Información que se necesita para mostrar un artículo en el modal
- */
-export interface ItemModalShowable {
-    name: string;
-    description: string;
-    imageSource: string;
-    sizeSelected: string;
-}
+import { RadioSelect } from "../../../generic/select/radio-select";
+import { CardMedia, Checkbox, FormControlLabel, FormLabel } from "@material-ui/core";
+import { ItemListable } from "../../../../models/item";
+import FormGroup from '@material-ui/core/FormGroup';
+import { CheckBoxSelect } from "../../../generic/select/checkbox-select";
 
 interface ItemModalProps {
     /**
      * Artículo que se desplegará en el modal
      */
-    item: ItemModalShowable;
+    item: ItemListable;
     /**
      * Función a ejecutar al momento de que el usuario cierre el modal
      */
@@ -31,11 +24,16 @@ interface ItemModalProps {
     /**
      * Función a ejecutar al momento de que el usuario seleccione un item
      */
-    onSelectSize: (size: string) => void;
+    onAcceptSelection: (size: string, extras: string[]) => void;
+    /**
+     * Función a ejecutar al momento que el usuario cancela la selección
+     */
+    onCancelSelection: () => void;
 }
 
 interface ItemModalState {
     sizeSelected: string;
+    extrasSelected: string[];
 }
 
 /**
@@ -45,8 +43,15 @@ export class ItemModal extends React.Component<ItemModalProps, ItemModalState> {
     constructor(props: ItemModalProps){
         super(props);
 
+        const initialSelection = 
+            props.item.selection || {
+                size: undefined,
+                extras: []
+            }
+
         this.state = {
-            sizeSelected: props.item.sizeSelected
+            sizeSelected: initialSelection.size,
+            extrasSelected: initialSelection.extras
         };
     }
 
@@ -62,9 +67,26 @@ export class ItemModal extends React.Component<ItemModalProps, ItemModalState> {
     /**
      * Manejador que se encarga del evento de seleccionar un tamaño de artículo
      */
-    handleSelectSize = () => {
-        this.props.onSelectSize(this.state.sizeSelected);
+    handleAcceptSelection = () => {
+        this.props.onAcceptSelection(this.state.sizeSelected, this.state.extrasSelected);
         this.props.onClose();
+    }
+
+    handleCancelSelection = () => {
+        this.props.onCancelSelection();
+        this.props.onClose();
+    }
+
+    removeExtra = (extraToRemove: string) => {
+        this.setState(prevState => ({
+            extrasSelected: this.state.extrasSelected.filter(extra => extra != extraToRemove)
+        }));
+    }
+
+    addExtra = (extraToAdd: string) => {
+        this.setState(prevState => ({
+            extrasSelected: [ ...this.state.extrasSelected, extraToAdd ]
+        }));
     }
 
     render() {
@@ -87,16 +109,27 @@ export class ItemModal extends React.Component<ItemModalProps, ItemModalState> {
                             <DialogContentText>
                                 {this.props.item.description}
                             </DialogContentText>
-                            <RadioSelect
-                                value={this.state.sizeSelected}
-                                values={sizes}
-                                onValueChange={this.handleSelectedSizeChange}
-                            >
-                            </RadioSelect>
+                            <div style={{display: "flex"}}>
+                                <RadioSelect
+                                    label="Size"
+                                    value={this.state.sizeSelected}
+                                    values={sizes}
+                                    onValueChange={this.handleSelectedSizeChange}
+                                >
+                                </RadioSelect>
+                                <CheckBoxSelect
+                                    label="Size"
+                                    selectedValues={this.state.extrasSelected}
+                                    values={this.props.item.extras}
+                                    onValueChecked={this.addExtra}
+                                    onValueUnchecked={this.removeExtra}
+                                >
+                                </CheckBoxSelect>
+                            </div>
                         </DialogContent>
                         <DialogActions>
-                            <Button disabled={this.state.sizeSelected == null} onClick={this.handleSelectSize} color="primary">Select</Button>
-                            <Button onClick={this.props.onClose} color="primary">Cancel</Button>
+                            <Button disabled={this.state.sizeSelected == null} onClick={this.handleAcceptSelection} color="primary">Select</Button>
+                            <Button onClick={this.handleCancelSelection} color="primary">Cancel</Button>
                         </DialogActions>
                     </div>
                 </div>

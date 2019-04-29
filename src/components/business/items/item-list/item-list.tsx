@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Label } from "../../../generic/label/label";
 import { ItemCardShowable, ItemCard } from "../item-card/item-card";
-import { ItemModal, ItemModalShowable } from "../item-modal/item-modal";
+import { ItemModal } from "../item-modal/item-modal";
 import { Grid, withStyles } from "@material-ui/core";
 import classNames from "classnames";
 import { withItems } from "../../../hoc/with-items";
@@ -49,8 +49,15 @@ class ItemListPure extends React.Component<ItemListProps, ItemListState> {
         });
     }
 
-    handleOnSelectItem = (size) => {
-        this.state.itemShownInModal.sizeSelected = size;
+    handleOnAcceptSelectItem = (sizeSelected: string, extrasSelected: string[]) => {
+        this.state.itemShownInModal.selection = {
+            size: sizeSelected,
+            extras: extrasSelected
+        };
+    }
+
+    handleOnCancelSelectItem = () => {
+        this.state.itemShownInModal.selection = null;
     }
 
     render() {
@@ -62,14 +69,18 @@ class ItemListPure extends React.Component<ItemListProps, ItemListState> {
                 <div className={classNames(classes.layout, classes.cardGrid)}>
                     <Grid container spacing={24}>
                         {
-                            items.map((item, itemIndex) => (
-                                <ItemCard 
-                                    key={itemIndex}
-                                    item={item} 
-                                    onSeeDetails={this.handleShowItemDetails}
-                                    selected={item.sizeSelected != null}
-                                ></ItemCard>
-                            ))
+                            items.map((item, itemIndex) => {
+                                const isSelected = item.selection != null;
+
+                                return (
+                                    <ItemCard 
+                                        key={itemIndex}
+                                        item={item} 
+                                        onSeeDetails={this.handleShowItemDetails}
+                                        selected={isSelected}
+                                    ></ItemCard>
+                                )
+                            })
                         }
                     </Grid>
                 </div>
@@ -78,7 +89,8 @@ class ItemListPure extends React.Component<ItemListProps, ItemListState> {
                         <ItemModal
                             item={this.state.itemShownInModal}
                             onClose={this.handleOnCloseItemModal}
-                            onSelectSize={this.handleOnSelectItem}
+                            onAcceptSelection={this.handleOnAcceptSelectItem}
+                            onCancelSelection={this.handleOnCancelSelectItem}
                         >
                         </ItemModal> :
                         null

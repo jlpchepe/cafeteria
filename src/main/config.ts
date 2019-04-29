@@ -13,7 +13,7 @@ export enum ApiMode {
 /**
  * En base a este parámetro la aplicación decidirá si inyectar servicio en memoria o remoto para los componentes
  */
-export const getPreferredApiMode = () => ApiMode.Remote;
+export const getPreferredApiMode = () => ApiMode.InMemory;
 
 const baseApiEndpoint = 
     // "http://localhost:8080"

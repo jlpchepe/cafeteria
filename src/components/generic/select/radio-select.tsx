@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
 
 /**
  * Propiedades para el selector de opciones por botones radio
@@ -12,6 +13,7 @@ interface RadioSelectProps {
      * Valor seleccionado actualmente
      */
     value: string;
+    label: string;
     values: string[];
     onValueChange: (selectedOption: string) => void;
 }
@@ -19,10 +21,7 @@ interface RadioSelectProps {
 const styles = theme => ({
     root: {
         display: 'flex',
-    },
-    group: {
-        margin: `${theme.spacing.unit}px 0`,
-    },
+    }
 });
 
 /**
@@ -40,10 +39,10 @@ export class RadioSelectSimple extends React.Component<RadioSelectProps> {
 
         return (
             <RadioGroup
-                className={classes.group}
                 value={this.props.value}
                 onChange={this.handleValueChange}
             >
+                <FormLabel component={"legend" as any}>{this.props.label}</FormLabel>
                 {
                     this.props.values.map(value => (
                         <FormControlLabel
