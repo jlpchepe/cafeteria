@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as A from '@material-ui/core/Box';
+import * as A from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -10,7 +10,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { withStyles, Theme } from "@material-ui/core/styles";
-import teal from '@material-ui/core/colors/teal';
+import teal from "@material-ui/core/colors/teal";
 
 /**
  * Información que se necesita para mostar un artículo en una tarjeta

@@ -2,6 +2,7 @@ import * as React from "react";
 import { ItemListable } from "../../models/item";
 import { ItemService } from "../../services/item-service";
 import { CircularProgress } from "@material-ui/core";
+import { Loading } from "../generic/loading/loading";
 
 type WithItemsProps = {
     items: ItemListable[];
@@ -35,7 +36,7 @@ export function withItems<OriginalProps extends WithItemsProps>(WrappedComponent
 
             return (
                 loading ?
-                    <CircularProgress/>
+                    <Loading></Loading>
                     : 
                     <WrappedComponent
                         {...this.props as OriginalProps} // we need to be explicit here

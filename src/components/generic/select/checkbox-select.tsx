@@ -1,5 +1,5 @@
 import * as React from "react";
-import FormGroup from '@material-ui/core/FormGroup';
+import FormGroup from "@material-ui/core/FormGroup";
 import { Checkbox, FormControlLabel, FormLabel } from "@material-ui/core";
 
 
@@ -30,7 +30,7 @@ export class CheckBoxSelect extends React.Component<CheckBoxSelectProps> {
     render(){
         return (
             <FormGroup>
-                <FormLabel component={"legend" as any}>{this.props.label}</FormLabel>
+                <FormLabel>{this.props.label}</FormLabel>
             {
                 this.props.values && this.props.values.map(value => {
                     const isValueSelected = this.isValueSelected(value);
