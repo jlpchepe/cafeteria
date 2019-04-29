@@ -16,7 +16,8 @@ export enum ApiMode {
 export const getPreferredApiMode = () => ApiMode.Remote;
 
 /**
- * URL base para hacer peticiones al BackEnd
+ * URL base para hacer peticiones al BackEnd, 
+ * Esta propiedad no es necesaria si el modo de la API está configurado como {@link ApiMode.InMemory}
  */
 const baseApiEndpoint = 
     // "http://localhost:8080"
