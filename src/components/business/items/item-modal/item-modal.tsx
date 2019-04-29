@@ -109,7 +109,7 @@ export class ItemModal extends React.Component<ItemModalProps, ItemModalState> {
                             <DialogContentText>
                                 {this.props.item.description}
                             </DialogContentText>
-                            <div style={{display: "flex"}}>
+                            <div style={{display: "flex", marginTop: "4px"}}>
                                 <RadioSelect
                                     label="Size"
                                     value={this.state.sizeSelected}
@@ -118,7 +118,7 @@ export class ItemModal extends React.Component<ItemModalProps, ItemModalState> {
                                 >
                                 </RadioSelect>
                                 <CheckBoxSelect
-                                    label="Size"
+                                    label="Extras"
                                     selectedValues={this.state.extrasSelected}
                                     values={this.props.item.extras}
                                     onValueChecked={this.addExtra}

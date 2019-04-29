@@ -5,6 +5,9 @@ import { Checkbox, FormControlLabel, FormLabel } from "@material-ui/core";
 
 export interface CheckBoxSelectProps {
     label: string;
+    /**
+     * Valores actualmente seleccionados
+     */
     selectedValues: string[];
     /**
      * Posibles valores para seleccionar
@@ -14,6 +17,10 @@ export interface CheckBoxSelectProps {
     onValueUnchecked: (value: string) => void;
 }
 
+/**
+ * Un selector de checkbox
+ * Componente puro que se encarga de listar opciones de selección de checkbox de forma vertical
+ */
 export class CheckBoxSelect extends React.Component<CheckBoxSelectProps> {
     isValueSelected = (extra: string): boolean => {
         return this.props.selectedValues
@@ -23,7 +30,7 @@ export class CheckBoxSelect extends React.Component<CheckBoxSelectProps> {
     render(){
         return (
             <FormGroup>
-                <FormLabel component={"legend" as any}>Extras</FormLabel>
+                <FormLabel component={"legend" as any}>{this.props.label}</FormLabel>
             {
                 this.props.values && this.props.values.map(value => {
                     const isValueSelected = this.isValueSelected(value);
